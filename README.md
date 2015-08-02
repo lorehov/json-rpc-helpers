@@ -1,9 +1,7 @@
 json-rpc-helpers
 ================
 
-.. image:: https://travis-ci.org/lorehov/json-rpc-helpers.png
-     :target: https://travis-ci.org/lorehov/json-rpc-helpers
-     :alt: Build Status
+![Build status](https://travis-ci.org/lorehov/json-rpc-helpers.png)
 
 
 Overview
