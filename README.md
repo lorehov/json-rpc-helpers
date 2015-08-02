@@ -27,8 +27,6 @@ Usually when bootstrapping `jsonrpc` API following problems are raise:
 
 Usage:
 
-.. code-block:: python
-
     import logging
 
     from jsonrpc_helpers.log import build_instance_method_decorator
@@ -55,8 +53,6 @@ some declarative scheme that can be shared with API consumers.
 
 Usage:
 
-.. code-block:: python
-
     from jsonrpc_helpers.validation import validated
 
 
@@ -77,14 +73,10 @@ Usage:
 Install
 -------
 
-.. code-block:: python
-
     pip install json-rpc-helpers
 
 Tests
 -----
-
-.. code-block:: python
 
     tox
 
