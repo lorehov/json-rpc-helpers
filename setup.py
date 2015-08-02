@@ -30,23 +30,20 @@ class PyTest(TestCommand):
         sys.exit(errno)
 
 setup(
-    name='json-rpc-validation',
+    name='json-rpc-helpers',
     version='1.0.0',
     packages=find_packages(),
 
     tests_require=['pytest', 'jsonschema'],
     install_requires=['jsonschema'],
-    test_suite='test_jsonrpcvalid',
     cmdclass={'test': PyTest},
-    py_modules=['jsonrpcvalid'],
 
-    # metadata for upload to PyPI
     author='Lev Orekhov',
     author_email='lev.orekhov@gmail.com',
-    url='https://github.com/lorehov/json-rpc-validation',
-    description='Helpers for validation of JSON-RPC using JSON-SCHEMA',
+    url='https://github.com/lorehov/json-rpc-helpers',
+    description='Helpers for bootstrapping of JSON-RPC API',
     long_desccription=read('README.md'),
-    keywords='json-rpc json-schema validation',
+    keywords='json-rpc json-schema validation logging',
 
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -54,12 +51,9 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     license='MIT',
