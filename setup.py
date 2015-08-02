@@ -34,7 +34,7 @@ setup(
     version='1.0.0',
     packages=find_packages(),
 
-    tests_require=['pytest', 'jsonschema', 'six'],
+    tests_require=['pytest', 'jsonschema'],
     install_requires=['jsonschema'],
     test_suite='test_jsonrpcvalid',
     cmdclass={'test': PyTest},
