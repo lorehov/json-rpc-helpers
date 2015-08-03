@@ -4,6 +4,8 @@ import sys
 from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 
+from jsonrpc_helpers import __version__
+
 
 def read(fname):
     try:
@@ -31,7 +33,7 @@ class PyTest(TestCommand):
 
 setup(
     name='json-rpc-helpers',
-    version='1.0.0',
+    version=__version__,
     packages=find_packages(),
 
     tests_require=['pytest', 'jsonschema'],
@@ -41,7 +43,7 @@ setup(
     author='Lev Orekhov',
     author_email='lev.orekhov@gmail.com',
     url='https://github.com/lorehov/json-rpc-helpers',
-    description='Helpers for bootstrapping of JSON-RPC API',
+    description='Helpers for JSON-RPC API bootstrapping',
     long_desccription=read('README.md'),
     keywords='json-rpc json-schema validation logging',
 
@@ -52,7 +54,6 @@ setup(
         'Natural Language :: English',
         'Operating System :: OS Independent',
         'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],

@@ -1,1 +1,1 @@
-__author__ = 'lorekhov'
+__version__ = '1.1.0'

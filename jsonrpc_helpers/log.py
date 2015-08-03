@@ -1,4 +1,5 @@
 import time
+import uuid
 import inspect
 import functools
 from logging import getLogger, LoggerAdapter
@@ -62,7 +63,9 @@ class LoggedDecorator(object):
                 start_time = time.time()
                 context = {
                     'method': fname,
-                    'tag': tag
+                    'tag': tag,
+                    'rid': str(uuid.uuid4())
+
                 }
                 logger = self.logger_adapter_cls(self.logger, context)
                 self.setup_logger(f, logger, context, args, kwargs)
