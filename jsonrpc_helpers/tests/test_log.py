@@ -76,15 +76,20 @@ def _decorate_and_call(fn, dec):
     return decorated('1', '2')
 
 
+def _assert_extra(extra, sample):
+    extra.pop('rid', None)
+    assert extra == sample
+
+
 def _assert_call(decorator, result, func_name):
     assert len(decorator.logger.logs) == 3
     assert decorator.logger.logs[0].msg == 'Method {} called'.format(func_name)
-    assert decorator.logger.logs[0].extra == {
+    _assert_extra(decorator.logger.logs[0].extra, {
         'tag': None, 'params': ['1', '2'],
-        'method': func_name}
+        'method': func_name})
     assert decorator.logger.logs[1].msg == 'OK'
-    assert decorator.logger.logs[1].extra == {
-        'response': ('1', '2'), 'method': func_name, 'tag': None}
+    _assert_extra(decorator.logger.logs[1].extra, {
+        'response': ('1', '2'), 'method': func_name, 'tag': None})
     assert decorator.logger.logs[2].msg == 'Execution time'
     assert result == ('1', '2')
 
@@ -145,25 +150,25 @@ def test_should_add_tag_if_provided(func, decorator):
 def test_should_skip_args(func, decorator):
     decorated = decorator(args_to_skip=['arg1'])(func)
     decorated('1', '2')
-    assert decorator.logger.logs[0].extra == {
+    _assert_extra(decorator.logger.logs[0].extra, {
         'tag': None, 'params': ['skipped', '2'],
-        'method': 'func'}
+        'method': 'func'})
 
 
 def test_should_skip_kwargs(func, decorator):
     decorated = decorator(args_to_skip=['arg1'])(func)
     decorated(arg1='1', arg2='2')
-    assert decorator.logger.logs[0].extra == {
+    _assert_extra(decorator.logger.logs[0].extra, {
         'tag': None, 'params': {'arg2': '2'},
-        'method': 'func'}
+        'method': 'func'})
 
 
 def test_should_map_response(func, decorator):
     decorated = decorator(response_mapper=response_to_len_mapper)(func)
     result = decorated('1', '2')
     assert result == ('1', '2')
-    assert decorator.logger.logs[1].extra == {
-        'response': 'response length is 2', 'method': 'func', 'tag': None}
+    _assert_extra(decorator.logger.logs[1].extra, {
+        'response': 'response length is 2', 'method': 'func', 'tag': None})
 
 
 def test_should_use_func_name_if_specified(func, decorator):
@@ -177,11 +182,11 @@ def test_should_not_fail_if_no_args(decorator):
     decorated = decorator()(func)
     result = decorated()
     assert result is None
-    assert decorator.logger.logs[0].extra == {
+    _assert_extra(decorator.logger.logs[0].extra, {
         'tag': None, 'params': {},
-        'method': 'func'}
-    assert decorator.logger.logs[1].extra == {
-        'response': None, 'method': 'func', 'tag': None}
+        'method': 'func'})
+    _assert_extra(decorator.logger.logs[1].extra, {
+        'response': None, 'method': 'func', 'tag': None})
 
 
 def test_should_work_for_instance_method_with_args():
@@ -195,9 +200,9 @@ def test_should_work_for_instance_method_with_args():
 
     foo = Foo()
     foo.handle('1')
-    assert decorator.logger.logs[0].extra == {
+    _assert_extra(decorator.logger.logs[0].extra, {
         'tag': None, 'params': ['1'],
-        'method': 'handle'}
+        'method': 'handle'})
     assert decorator.logger.logs[1].msg == 'Bar'
 
 
@@ -212,7 +217,7 @@ def test_should_work_for_instance_method_with_kwargs():
 
     foo = Foo()
     foo.handle(arg1='1')
-    assert decorator.logger.logs[0].extra == {
+    _assert_extra(decorator.logger.logs[0].extra, {
         'tag': None, 'params': {'arg1': '1'},
-        'method': 'handle'}
+        'method': 'handle'})
     assert decorator.logger.logs[1].msg == 'Bar'
